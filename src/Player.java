@@ -55,6 +55,11 @@ public class Player
         return figure;
     }
 
+    public Figure getPlayerFigure(int index)
+    {
+        return figure[index];
+    }
+
     public boolean isPlayerFigures(Point position)
     {
         for(int i=0; i<16; i++)

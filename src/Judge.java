@@ -7,6 +7,9 @@ public class Judge
     private Player player2;
     private Figure figures[] = new Figure[32];
 
+    private Figure king1;
+    private Figure king2;
+
     public Judge(Game game, Player player1, Player player2)
     {
         this.game = game;
@@ -17,6 +20,9 @@ public class Judge
             figures[i] = player1.getPlayerFigures()[i];
             figures[i+16] = player2.getPlayerFigures()[i];
         }
+
+        king1 = player1.getPlayerFigure(4);
+        king2 = player2.getPlayerFigure(4);
 
     }
 
@@ -31,15 +37,26 @@ public class Judge
         return true;
     }
 
-        public boolean validMyAttack(Figure figure, Point nextHop)
-        {
-            if(!figure.validAttack(nextHop)) return false;
-            if(figure.getType()=="bishop" || figure.getType()=="queen" || figure.getType()=="rook") {
-                if(figure.haveColision(figures, nextHop)) {
-                    return false;
-                }
+    public boolean validMyAttack(Figure figure, Point nextHop)
+    {
+        if(!figure.validAttack(nextHop)) return false;
+        if(figure.getType()=="bishop" || figure.getType()=="queen" || figure.getType()=="rook") {
+            if(figure.haveColision(figures, nextHop)) {
+                return false;
             }
-            return true;
         }
+        return true;
+    }
+
+    public void canCapture(Player attacker, Player opponent)
+    {
+        for(int i=0; i<attacker.getPlayerFigures().length; i++)
+        {
+            if(validMyAttack(attacker.getPlayerFigure(i), opponent.getPlayerFigure(4).getFigurePos()))
+            {
+                System.out.println(attacker.getPlayerColor() + " SZACH!!! " + opponent.getPlayerColor());
+            }
+        }
+    }
 
 }

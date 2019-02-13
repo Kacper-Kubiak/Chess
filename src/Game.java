@@ -56,6 +56,7 @@ public class Game implements MouseListener
                 player.move(player.getPlayerSelected(), board.getPosByPoint(position));
                 player.clearPlayerSelected();
                 turn = turn == "white" ? "black" : "white";
+                judge.canCapture(player, opponent);
             }
             else if(judge.validMyAttack(player.getPlayerSelected(), board.getPosByPoint(position)) &&
                     //player.getPlayerSelected().validAttack(board.getPosByPoint(position)) &&
@@ -65,10 +66,15 @@ public class Game implements MouseListener
                 player.clearPlayerSelected();
                 opponent.getFigureByPoint(board.getPosByPoint(position)).setActive(false);
                 turn = turn == "white" ? "black" : "white";
+                judge.canCapture(player, opponent);
             }
         }
     }
 
+    public String getTurn()
+    {
+        return turn;
+    }
 
     public Game(JFrame frame, Board board, Player player1, Player player2)
     {
