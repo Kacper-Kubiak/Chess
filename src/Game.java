@@ -13,6 +13,7 @@ public class Game implements MouseListener
     private Board board;
     private Player player1;
     private Player player2;
+    private Judge judge;
 
     private String turn = "white";
 
@@ -24,37 +25,47 @@ public class Game implements MouseListener
     public void mousePressed(MouseEvent event) {
         //Ruch gracza 1
         if(turn == player1.getPlayerColor()) {
-            boardClick(event.getPoint(), player1);
+            boardClick(event.getPoint(), player1, player2);
         }
         // Ruch gracza 2
         else if(turn == player2.getPlayerColor()) {
-            boardClick(event.getPoint(), player2);
+            boardClick(event.getPoint(), player2, player1);
         }
         //System.out.println("Press " + event.getPoint());
         frame.repaint();
     }
 
-    private void boardClick(Point position, Player player) {
+    private void boardClick(Point position, Player player, Player opponent) {
         if (player.isPlayerFigures(board.getPosByPoint(position))) {
             if(player.getPlayerSelected() != null)
             {
                 if(player.getPlayerSelected() == player.getFigureByPoint(board.getPosByPoint(position))) {
                     player.clearPlayerSelected();
                 }
-                /*else {
-                    player.clearPlayerSelected();
-                    System.out.println("Ruch");
-                    turn = turn == "white" ? "black" : "white";
-                }*/
             }
-            else player.setPlayerSelected(player.getFigureByPoint(board.getPosByPoint(position)));
+            else if(player.getFigureByPoint(board.getPosByPoint(position)).getActive()) {
+                player.setPlayerSelected(player.getFigureByPoint(board.getPosByPoint(position)));
+            }
         }
         else if(player.getPlayerSelected() != null)
         {
-            player.move(player.getPlayerSelected(), board.getPosByPoint(position));
-            player.clearPlayerSelected();
-            System.out.println("Ruch");
-            turn = turn == "white" ? "black" : "white";
+            //if(player.getPlayerSelected().validMove(board.getPosByPoint(position)) &&
+            if(judge.validMyMove(player.getPlayerSelected(), board.getPosByPoint(position)) &&
+                    !opponent.isPlayerFigures(board.getPosByPoint(position)))
+            {
+                player.move(player.getPlayerSelected(), board.getPosByPoint(position));
+                player.clearPlayerSelected();
+                turn = turn == "white" ? "black" : "white";
+            }
+            else if(judge.validMyAttack(player.getPlayerSelected(), board.getPosByPoint(position)) &&
+                    //player.getPlayerSelected().validAttack(board.getPosByPoint(position)) &&
+                    opponent.isPlayerFigures(board.getPosByPoint(position)))
+            {
+                player.move(player.getPlayerSelected(), board.getPosByPoint(position));
+                player.clearPlayerSelected();
+                opponent.getFigureByPoint(board.getPosByPoint(position)).setActive(false);
+                turn = turn == "white" ? "black" : "white";
+            }
         }
     }
 
@@ -65,5 +76,6 @@ public class Game implements MouseListener
         this.board = board;
         this.player1 = player1;
         this.player2 = player2;
+        judge = new Judge(this, player1, player2);
     }
 }

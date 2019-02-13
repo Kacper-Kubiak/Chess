@@ -9,6 +9,7 @@ public class Figure
     private int y;
     private boolean selected = false;
     private boolean active = true;
+    private String type;
 
     public Figure(String Color, int x, int y) {
         this.color = color;
@@ -72,5 +73,20 @@ public class Figure
     public void setActive(boolean status)
     {
         active = status;
+    }
+    public boolean validMove(Point nextHop)
+    {
+        return false;
+    }
+    public boolean validAttack(Point nextHop){
+        return false;
+    }
+    public String getType()
+    {
+        return type;
+    }
+    public boolean haveColision(Figure[] figures, Point nextHop)
+    {
+        return false;
     }
 }

@@ -59,6 +59,7 @@ public class Player
     {
         for(int i=0; i<16; i++)
         {
+            if(!figure[i].getActive()) continue;
             if(figure[i].getFigurePosX() == position.x && figure[i].getFigurePosY() == position.y) return true;
         }
         return false;
@@ -91,6 +92,7 @@ public class Player
     {
         for(int i=0; i<16; i++)
         {
+            if(!figure[i].getActive()) continue;
             if(figure[i].getFigurePosX() == point.x && figure[i].getFigurePosY() == point.y) return figure[i];
         }
         return null;

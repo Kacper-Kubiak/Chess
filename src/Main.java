@@ -50,7 +50,8 @@ public class Main
         //Wyświetlenie okna aplikacji
         frame.setVisible(true);
 
-        frame.addMouseListener(new Game(frame, board, player1, player2));
+        Game game = new Game(frame, board, player1, player2);
+        frame.addMouseListener(game);
         //Game game = new Game(board, player1, player2);
     }
 
