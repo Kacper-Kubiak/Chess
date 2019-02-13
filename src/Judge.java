@@ -50,11 +50,13 @@ public class Judge
 
     public void canCapture(Player attacker, Player opponent)
     {
+        opponent.setPlayerCapute(false);
         for(int i=0; i<attacker.getPlayerFigures().length; i++)
         {
             if(validMyAttack(attacker.getPlayerFigure(i), opponent.getPlayerFigure(4).getFigurePos()))
             {
                 System.out.println(attacker.getPlayerColor() + " SZACH!!! " + opponent.getPlayerColor());
+                opponent.setPlayerCapute(true);
             }
         }
     }

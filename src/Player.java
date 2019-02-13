@@ -8,6 +8,8 @@ public class Player
 
     private Figure figure[] = new Figure[16];//16 figure per user
 
+    private boolean capture = false;
+
     public Player(boolean AI,  String color) {
         this.AI = AI;
         this.color = color;
@@ -107,5 +109,15 @@ public class Player
     {
         moveFigure.setFigurePos(movePoint);
         return false;
+    }
+
+    public boolean getPlayerCapture()
+    {
+        return capture;
+    }
+
+    public void setPlayerCapute(boolean status)
+    {
+        capture = status;
     }
 }

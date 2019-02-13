@@ -17,12 +17,15 @@ public class Game implements MouseListener
 
     private String turn = "white";
 
+    private boolean winner = false;
+
     public void mouseClicked(MouseEvent event) {}
     public void mouseEntered(MouseEvent event) {}
     public void mouseExited(MouseEvent event) {}
     public void mouseReleased(MouseEvent event) {}
 
     public void mousePressed(MouseEvent event) {
+        if(winner == true) return;
         //Ruch gracza 1
         if(turn == player1.getPlayerColor()) {
             boardClick(event.getPoint(), player1, player2);
@@ -64,6 +67,12 @@ public class Game implements MouseListener
             {
                 player.move(player.getPlayerSelected(), board.getPosByPoint(position));
                 player.clearPlayerSelected();
+                if(board.getPosByPoint(position).equals(opponent.getPlayerFigure(4).getFigurePos()))
+                {
+                    System.out.println("Koniec gry");
+                    winner=true;
+                    return;
+                }
                 opponent.getFigureByPoint(board.getPosByPoint(position)).setActive(false);
                 turn = turn == "white" ? "black" : "white";
                 judge.canCapture(player, opponent);
