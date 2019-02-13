@@ -12,11 +12,13 @@ public class JPainter extends JComponent
     private Figure figure[] = new Figure[32];
     private BufferedImage img[] = new BufferedImage[32];
     private int lastIndex = 0;
+    private BufferedImage selected;
 
     public void setBoard(String images)
     {
         try {
             boardImage = ImageIO.read(new File(images));
+            selected = ImageIO.read(new File("images/selected.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,8 +42,14 @@ public class JPainter extends JComponent
         g2d.drawImage(boardImage, null, 0, 0);
 
         for(int i=0; i<32; i++) {
-            g2d.drawImage(img[i], null, 58*(figure[i].getFigurePosX())+11, 58*(figure[i].getFigurePosY())+11);
+            if(figure[i].getActive()) {
+                g2d.drawImage(img[i], null, 58*(figure[i].getFigurePosX())+11, 58*(figure[i].getFigurePosY())+11);
+            }
+            if(figure[i].getSelected()) {
+                g2d.drawImage(selected, null, 58*(figure[i].getFigurePosX())+11, 58*(figure[i].getFigurePosY())+11);
+            }
         }
+
     }
 
     @Override

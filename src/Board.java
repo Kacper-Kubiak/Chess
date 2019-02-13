@@ -45,7 +45,7 @@ public class Board
                 if (x >= position[i][0].x && x <= position[i][0].x + 58) {
                     if (y >= position[0][j].y && y <= position[0][j].y + 58) {
                         //System.out.println((i+1) + " " + (j+1));
-                        return new Point(i, j);
+                        return new Point(i+1, j+1);
                     }
                 }
             }

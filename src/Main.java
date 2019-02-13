@@ -26,7 +26,6 @@ public class Main
         player1.loadFigure();
         player2.loadFigure();
 
-
         //Zmienne do rysowania GUI
         JPainter images = new JPainter();
         JPanel panel = new JPanel();

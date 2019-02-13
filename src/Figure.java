@@ -7,6 +7,8 @@ public class Figure
     private String figureIMG;
     private int x;
     private int y;
+    private boolean selected = false;
+    private boolean active = true;
 
     public Figure(String Color, int x, int y) {
         this.color = color;
@@ -54,5 +56,21 @@ public class Figure
     }
     public void setFigurePosY(int y){
         this.y = y;
+    }
+    public boolean getSelected()
+    {
+        return selected;
+    }
+    public void setSelected(boolean status)
+    {
+        selected = status;
+    }
+    public boolean getActive()
+    {
+        return active;
+    }
+    public void setActive(boolean status)
+    {
+        active = status;
     }
 }

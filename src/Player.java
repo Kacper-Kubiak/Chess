@@ -4,6 +4,7 @@ public class Player
 {
     private boolean AI;
     private String color;
+    private Figure selected = null;
 
     private Figure figure[] = new Figure[16];//16 figure per user
 
@@ -58,8 +59,46 @@ public class Player
     {
         for(int i=0; i<16; i++)
         {
-            if(figure[i].getFigurePos() == position) return true;
+            if(figure[i].getFigurePosX() == position.x && figure[i].getFigurePosY() == position.y) return true;
         }
+        return false;
+    }
+
+    public Figure getPlayerSelected()
+    {
+        for(int i=0; i<16; i++)
+        {
+            if(figure[i].getSelected() == true) return figure[i];
+        }
+        return null;
+    }
+
+    public void setPlayerSelected(Figure selected)
+    {
+        for(int i=0; i<16; i++)
+        {
+            if(figure[i] == selected) selected.setSelected(!selected.getSelected());
+            else figure[i].setSelected(false);
+        }
+    }
+
+    public void clearPlayerSelected()
+    {
+        for(int i=0; i<16; i++) figure[i].setSelected(false);
+    }
+
+    public Figure getFigureByPoint(Point point)
+    {
+        for(int i=0; i<16; i++)
+        {
+            if(figure[i].getFigurePosX() == point.x && figure[i].getFigurePosY() == point.y) return figure[i];
+        }
+        return null;
+    }
+
+    public boolean move(Figure moveFigure, Point movePoint)
+    {
+        moveFigure.setFigurePos(movePoint);
         return false;
     }
 }
